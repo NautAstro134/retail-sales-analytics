@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  - name: stg_sales
+    columns:
+      - name: order_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: region
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['North', 'South', 'East', 'West']
+
+      - name: order_date
+        data_tests:
+          - not_null
+
+      - name: product
+        data_tests:
+          - not_null
+
+      - name: rep
+        data_tests:
+          - not_null
+
+      - name: quantity
+        data_tests:
+          - not_null
+
+      - name: unit_price
+        data_tests:
+          - not_null
+
+      - name: discount
+        data_tests:
+          - not_null
+
+      - name: discount
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [0, 0.05, 0.10, 0.15, 0.20]
+
+      - name: product
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Desk', 'Laptop', 'Chair', 'Headset', 'Mouse', 'Webcam', 'Keyboard', 'Monitor']
+
+      - name: rep
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Alice', 'Bob', 'Carlos', 'Diana', 'Eve', 'Frank']
