@@ -1,15 +1,75 @@
-Welcome to your new dbt project!
+# Retail Sales Analytics
 
-### Using the starter project
+End-to-end retail sales analytics project using PostgreSQL, dbt, SQL, and Metabase.
 
-Try running the following commands:
-- dbt run
-- dbt test
+## Business Results
 
+- Total Revenue: $6,898,908.67
+- Total Orders: 1,000
+- Items Sold: 10,373
+- Top Product: Desk — $1,021,571.12
+- Top Salesperson: Carlos — $1,418,990.97
+- Top Region: North — $1,779,969.45
 
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [chat](https://community.getdbt.com/) on Slack for live discussions and support
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+## Dashboard
+
+The Metabase dashboard includes:
+
+- Total Revenue
+- Total Orders
+- Items Sold
+- Revenue by Product
+- Revenue by Region
+- Revenue by Salesperson
+- Monthly Revenue Trend
+
+Interactive filters:
+
+- Region
+- Salesperson
+- Product
+- Order Date
+
+### Dashboard — Top
+
+![Retail Sales Dashboard Top](dashboard-top.png)
+
+### Dashboard — Bottom
+
+![Retail Sales Dashboard Bottom](dashboard-bottom.png)
+
+## Business Findings
+
+Desk and Laptop are the strongest products by revenue, each generating approximately $1 million.
+
+Carlos is the strongest salesperson, generating approximately $1.42 million in revenue.
+
+Regional performance is balanced. North leads at about $1.78 million, while all four regions generate between approximately $1.67 million and $1.78 million.
+
+Monthly revenue fluctuates considerably, making product, salesperson, region, and date filters useful for investigating changes in performance.
+
+## Recommended Actions
+
+- Investigate why the strongest salespeople outperform the others.
+- Compare discount levels with revenue and units sold.
+- Investigate unusually strong and weak sales months.
+- Review lower-performing products for pricing or demand issues.
+- Analyze product, region, and salesperson combinations for opportunities.
+
+## Data Pipeline
+
+Raw sales data → PostgreSQL → dbt models → analytics-ready data → Metabase dashboard → business recommendations
+
+## Technology
+
+- PostgreSQL
+- SQL
+- dbt
+- Metabase
+- Git
+- GitHub
+- Linux
+
+## Client Use Case
+
+This workflow can be adapted for a small business with sales data in Excel, CSV files, or an existing database. The deliverable can include cleaned data, repeatable transformations, business analysis, an interactive dashboard, and a short findings report.
