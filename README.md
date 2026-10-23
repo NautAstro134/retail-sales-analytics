@@ -1,6 +1,10 @@
-# Retail Sales Analytics
+﻿# Retail Sales Analytics
 
 End-to-end retail sales analytics project using PostgreSQL, dbt, SQL, and Metabase.
+
+## Dataset
+
+Synthetic retail sales dataset containing 1,000 orders from January 2, 2023 through December 31, 2024.
 
 ## Business Results
 
@@ -50,11 +54,13 @@ Monthly revenue fluctuates considerably, making product, salesperson, region, an
 
 ## Recommended Actions
 
-- Investigate why the strongest salespeople outperform the others.
-- Compare discount levels with revenue and units sold.
-- Investigate unusually strong and weak sales months.
-- Review lower-performing products for pricing or demand issues.
-- Analyze product, region, and salesperson combinations for opportunities.
+- Prioritize Desk and Laptop inventory and promotions; together they generate $2.03 million in revenue.
+- Use Carlos as a sales benchmark; his $1.42 million exceeds the lowest salesperson by about $459,000.
+- Test campaigns in East; North generates about $106,838 more revenue.
+
+## Data Validation
+
+PostgreSQL and dbt checks confirmed 1,000 orders, 10,373 items sold, and $6,898,908.67 in revenue.
 
 ## Data Pipeline
 
@@ -73,3 +79,5 @@ Raw sales data → PostgreSQL → dbt models → analytics-ready data → Metaba
 ## Client Use Case
 
 This workflow can be adapted for a small business with sales data in Excel, CSV files, or an existing database. The deliverable can include cleaned data, repeatable transformations, business analysis, an interactive dashboard, and a short findings report.
+
+
