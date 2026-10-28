@@ -1,58 +1,50 @@
 version: 2
 
+sources:
+  - name: raw
+    schema: public
+    tables:
+      - name: sales_raw
+        description: Raw retail order data loaded from the generated demo CSV or a client source file.
+
 models:
   - name: stg_sales
+    description: Typed sales records with calculated net revenue after discount.
     columns:
       - name: order_id
         data_tests:
           - not_null
           - unique
-
+      - name: order_date
+        data_tests:
+          - not_null
       - name: region
         data_tests:
           - not_null
           - accepted_values:
               arguments:
                 values: ['North', 'South', 'East', 'West']
-
-      - name: order_date
-        data_tests:
-          - not_null
-
       - name: product
         data_tests:
           - not_null
-
-      - name: rep
-        data_tests:
-          - not_null
-
-      - name: quantity
-        data_tests:
-          - not_null
-
-      - name: unit_price
-        data_tests:
-          - not_null
-
-      - name: discount
-        data_tests:
-          - not_null
-
-      - name: discount
-        data_tests:
-          - accepted_values:
-              arguments:
-                values: [0, 0.05, 0.10, 0.15, 0.20]
-
-      - name: product
-        data_tests:
           - accepted_values:
               arguments:
                 values: ['Desk', 'Laptop', 'Chair', 'Headset', 'Mouse', 'Webcam', 'Keyboard', 'Monitor']
-
       - name: rep
         data_tests:
+          - not_null
           - accepted_values:
               arguments:
                 values: ['Alice', 'Bob', 'Carlos', 'Diana', 'Eve', 'Frank']
+      - name: quantity
+        data_tests:
+          - not_null
+      - name: unit_price
+        data_tests:
+          - not_null
+      - name: discount
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 0.05, 0.10, 0.15, 0.20]
