@@ -1,38 +1,10 @@
-﻿# Retail Sales Analytics
+# Retail Sales Analytics
 
 End-to-end retail sales analytics project using PostgreSQL, dbt, SQL, and Metabase.
 
-## Dataset
-
-Synthetic retail sales dataset containing 1,000 orders from January 2, 2023 through December 31, 2024.
-
-## Business Results
-
-- Total Revenue: $6,898,908.67
-- Total Orders: 1,000
-- Items Sold: 10,373
-- Top Product: Desk — $1,021,571.12
-- Top Salesperson: Carlos — $1,418,990.97
-- Top Region: North — $1,779,969.45
-
 ## Dashboard
 
-The Metabase dashboard includes:
-
-- Total Revenue
-- Total Orders
-- Items Sold
-- Revenue by Product
-- Revenue by Region
-- Revenue by Salesperson
-- Monthly Revenue Trend
-
-Interactive filters:
-
-- Region
-- Salesperson
-- Product
-- Order Date
+The Metabase dashboard includes total revenue, total orders, items sold, revenue by product, region, and salesperson, a monthly revenue trend, and interactive filters.
 
 ### Dashboard — Top
 
@@ -41,6 +13,75 @@ Interactive filters:
 ### Dashboard — Bottom
 
 ![Retail Sales Dashboard Bottom](dashboard-bottom.png)
+
+## Published Business Results
+
+These validated results come from the original 1,000-order synthetic project dataset used for the dashboard:
+
+- Total Revenue: $6,898,908.67
+- Total Orders: 1,000
+- Items Sold: 10,373
+- Top Product: Desk — $1,021,571.12
+- Top Salesperson: Carlos — $1,418,990.97
+- Top Region: North — $1,779,969.45
+
+## Reproduce the Pipeline
+
+The original dashboard dataset is synthetic but is not redistributed in this repository. To make the pipeline runnable without private or missing files, the repository includes a deterministic demo-data generator with the same schema.
+
+> The generated demo data validates the engineering workflow. Its totals will differ from the published dashboard results above.
+
+### Requirements
+
+- Python 3.10+
+- PostgreSQL
+- dbt-postgres
+
+### 1. Install the Python/dbt dependency
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### 2. Generate 1,000 demo orders
+
+```bash
+python scripts/generate_sample_data.py
+```
+
+This creates `data/sales_demo.csv`.
+
+### 3. Create and load the PostgreSQL table
+
+Create an empty database named `retail_sales`, then run:
+
+```bash
+psql -d retail_sales -f sql/01_create_sales_raw.sql
+psql -d retail_sales -c "\copy public.sales_raw FROM 'data/sales_demo.csv' WITH (FORMAT csv, HEADER true)"
+```
+
+### 4. Configure dbt
+
+Copy `profiles.yml.example` to `~/.dbt/profiles.yml`. Set these environment variables for your PostgreSQL instance:
+
+- `DBT_HOST`
+- `DBT_PORT`
+- `DBT_USER`
+- `DBT_PASSWORD`
+- `DBT_DATABASE`
+
+### 5. Build and test
+
+```bash
+dbt debug
+dbt build
+```
+
+The staging model reads the declared `raw.sales_raw` source. Every downstream model uses `ref('stg_sales')`, so dbt manages dependencies consistently.
+
+## Data Pipeline
+
+Synthetic CSV → PostgreSQL raw table → dbt staging model → analytics models → Metabase dashboard → business recommendations
 
 ## Business Findings
 
@@ -60,11 +101,9 @@ Monthly revenue fluctuates considerably, making product, salesperson, region, an
 
 ## Data Validation
 
-PostgreSQL and dbt checks confirmed 1,000 orders, 10,373 items sold, and $6,898,908.67 in revenue.
+PostgreSQL and dbt checks confirmed 1,000 orders, 10,373 items sold, and $6,898,908.67 in revenue for the original dashboard dataset.
 
-## Data Pipeline
-
-Raw sales data → PostgreSQL → dbt models → analytics-ready data → Metabase dashboard → business recommendations
+dbt tests cover unique and non-null order IDs, required fields, and accepted values for region, product, salesperson, and discount.
 
 ## Technology
 
@@ -72,12 +111,10 @@ Raw sales data → PostgreSQL → dbt models → analytics-ready data → Metaba
 - SQL
 - dbt
 - Metabase
+- Python
 - Git
 - GitHub
-- Linux
 
 ## Client Use Case
 
 This workflow can be adapted for a small business with sales data in Excel, CSV files, or an existing database. The deliverable can include cleaned data, repeatable transformations, business analysis, an interactive dashboard, and a short findings report.
-
-
