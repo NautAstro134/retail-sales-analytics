@@ -8,4 +8,4 @@ select
     unit_price,
     discount,
     quantity * unit_price * (1 - discount) as revenue
-from public.sales_raw
+from {{ source('raw', 'sales_raw') }}
